@@ -1,24 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
+import useWebWorker from './hooks/useWebWorker'
+import { blockMainStream } from './utils/blockMainStream';
 import './App.css';
 
 function App() {
+  const { result, runTask } = useWebWorker(blockMainStream);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input className='mb15'/>
+      <button onClick={() => blockMainStream()} className='mb15'>Click to call function that block main steam at least 5 sec</button>
+      <button onClick={() => runTask()} className='mb15'>Click to call function that block main steam at least 5 sec with webWorker</button>
+      <label>{`Result - ${result || 'N/A'}`}</label>
     </div>
   );
 }
